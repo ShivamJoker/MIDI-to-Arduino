@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MIDI to Arduino Code</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header><h2>Convert MIDI to Arduino Code</h2></header>
+      <div id="FileDrop">
+        <div id="Text">Click / Drop a midi file here</div>
+        <input type="file" accept="audio/midi" />
+      </div>
+      <select name="tracks" id="tracks"></select>
+      <div id="Results">
+        <textarea
+          id="arduinoCode"
+          placeholder="arduino sketch output..."
+        ></textarea>
+      </div>
+      <button disabled id="play-toggle">Play</button>
+      <button disabled id="downloadBtn">Download Sketch</button>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
