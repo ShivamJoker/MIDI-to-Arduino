@@ -3,14 +3,16 @@
   <head>
     <title>MIDI to Arduino Code</title>
     <link rel="stylesheet" href="./style.css" />
+    <meta charset="UTF-8" />
   </head>
   <body>
     <main>
       <header><h2>Convert MIDI to Arduino Code</h2></header>
       <div id="FileDrop">
-        <div id="Text">Click / Drop a midi file here</div>
+        <div id="Text">Click / Drop a MIDI file here</div>
         <input type="file" accept="audio/midi" />
       </div>
+      <p id="error"></p>
       <select name="tracks" id="tracks"></select>
       <div id="Results">
         <textarea
@@ -18,8 +20,22 @@
           placeholder="arduino sketch output..."
         ></textarea>
       </div>
-      <button disabled id="play-toggle">Play</button>
-      <button disabled id="downloadBtn">Download Sketch</button>
+      <div class="btn-container">
+        <button disabled class="play" id="play-toggle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path d="M8 5v14l11-7z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+          </svg>
+        </button>
+        <button disabled class="download" id="downloadBtn">
+          Download Sketch
+        </button>
+      </div>
     </main>
     <script type="module" src="./main.js"></script>
   </body>

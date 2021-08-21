@@ -22,7 +22,7 @@ h2 {
 }
 
 #FileDrop.Hover {
-  background-color: black;
+  background-color: #00b894;
   color: white;
 }
 
@@ -46,6 +46,12 @@ h2 {
   text-align: center;
 }
 
+#error {
+  color: #d63031;
+}
+#error:empty {
+  display: none;
+}
 select:empty {
   display: none;
 }
@@ -57,22 +63,50 @@ textarea {
   resize: vertical;
   display: inline-block;
   position: relative;
+  box-sizing: border-box;
+  margin-top: 10px;
 }
 
-#Results {
-  position: relative;
-  width: 100%;
-  margin: 10px auto;
+textarea:placeholder-shown {
+  display: none;
+}
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
 }
 
-#Description {
-  position: relative;
-  width: 100%;
+button {
+  background-color: #74b9ff; /* Green */
+  border: none;
+  color: white;
+  padding: 0.2rem 0.8rem;
   text-align: center;
-  height: 40px;
-  font-size: 16px;
-  margin: 10px auto;
-  font-family: sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+}
+button:disabled {
+  /* display: none; */
+  opacity: 0.5;
+  cursor: default;
+}
+button.play {
+  font-size: 1.4rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+
+  padding: 0.2rem 0.4rem;
+}
+button svg {
+  height: 30px;
+  width: 30px;
+  fill: #fff;
+}
+
+button.download {
+  background-color: #00b894;
 }
 
 tone-play-toggle {
