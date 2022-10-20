@@ -17,10 +17,19 @@ const saveFile = (filename: string, data: string) => {
 };
 
 const convertMelody = (notes: Note[]) => {
+  let prevNoteEndTime = 0; //the time at which the previous note ended
   let code = `
 void song(int buzzerPin){
   `;
   notes.forEach((note) => {
+    const restTime = note.time - prevNoteEndTime; //duration of rest after the previous note
+    prevNoteEndTime = note.time + note.duration;
+    const restTime_ms = Math.round(restTime * 1000);
+    if(restTime_ms >= 0){
+        code += `delay(${restTime_ms});
+`
+    }
+
     const freq = Math.round(Frequency(note.name).toFrequency());
     code += `
   tone(buzzerPin, ${freq});
