@@ -1,7 +1,7 @@
 # MIDI-to-Arduino
 Convert MIDI files into arduino code
 
-Website - https://arduinomidi.netlify.app
+Website - https://midi.tulzy.dev
 
 ## Video Demo
 
