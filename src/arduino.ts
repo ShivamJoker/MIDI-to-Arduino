@@ -15,8 +15,21 @@ const saveFile = (filename: string, data: string) => {
 const convertMelody = (notes: Note[]) => {
   const midiNotesFreq = new Map<string, number>();
 
-  let code = `
-void playMidi(int pin, const int notes[][3], size_t len){`;
+  let code = `void (*midiCtrl)(int pin, const int notes[][3], size_t len)
+
+unsigned long currentMillis, startMillis;
+int i;
+
+void stopMidi(int pin, const int notes[][3], size_t len) {
+  (void) len;
+  if(currentMillis - startMillis >= notes[i][1]) {
+    noTone(pin);
+    startMillis = currentMillis;
+    midiCtrl = &playMidi;
+  }
+}
+
+void playMidi(int pin, const int notes[][3], size_t len) {`;
 
   let notesCArr = `const int midi1[${notes.length}][3] = {\n`;
   notes.forEach((note, idx) => {
@@ -40,11 +53,12 @@ void playMidi(int pin, const int notes[][3], size_t len){`;
   notesCArr += "};";
 
   code += `
- for (int i = 0; i < len; i++) {
+  if(currentMillis - startMillis >= notes[i][2]) {
     tone(pin, notes[i][0]);
-    delay(notes[i][1]);
-    noTone(pin);
-    delay(notes[i][2]);
+    startMillis = currentMillis;
+    if(++i >= len)
+      i = 0;
+    midiCtrl = &stopMidi;
   }
 `;
 
@@ -60,12 +74,15 @@ void playMidi(int pin, const int notes[][3], size_t len){`;
 // main.ino or main.cpp
 void setup() {
   // put your setup code here, to run once:
-  // play midi by passing pin no., midi, midi len
-  playMidi(11, midi1, ARRAY_LEN(midi1));
+  startMillis = millis();
+  midiCtrl = &playMidi;
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  currentMillis = millis();
+  // play/stop midi by passing pin no., midi, midi len
+  midiCtrl(11, midi1, ARRAY_LEN(midi1));
 }
 `;
 
